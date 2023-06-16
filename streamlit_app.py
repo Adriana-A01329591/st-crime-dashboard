@@ -7,6 +7,8 @@
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+import zipfile
+import shutil
 
 st.set_page_config(page_title="Actividad Integradora",
                    page_icon=":yum:",
@@ -14,7 +16,18 @@ st.set_page_config(page_title="Actividad Integradora",
 
 @st.cache_data
 def get_data():
-    df = pd.read_csv('Police_Department_Incident_Reports__2018_to_Present.csv')
+    # Specify the path to the ZIP file
+    zip_path = 'database.zip'
+    # Specify the name of the CSV file within the ZIP folder
+    csv_filename = 'Reduced_DB.csv'
+    # Extract the CSV file from the ZIP folder
+    with zipfile.ZipFile(zip_path, 'r') as zip_file:
+        zip_file.extract(csv_filename, path='temp_folder')
+    # Read the CSV file into a DataFrame
+    csv_filepath = 'temp_folder/' + csv_filename
+    df = pd.read_csv(csv_filepath)
+    # Clean up: Remove the temporary extracted folder and file
+    shutil.rmtree('temp_folder')
     return df
 
 df = get_data()
