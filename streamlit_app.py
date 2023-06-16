@@ -4,6 +4,11 @@
 
 # streamlit run Actividad_Integradora.py
 
+import subprocess
+
+# Install required packages
+subprocess.check_call(['pip', 'install', 'plotly'])
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
