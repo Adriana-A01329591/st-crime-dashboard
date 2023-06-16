@@ -6,8 +6,10 @@
 
 import subprocess
 
-# Install required packages
-subprocess.check_call(['pip', 'install', 'plotly'])
+# Install required package(s)
+packages = ['plotly']
+for package in packages:
+    subprocess.check_call(['pip', 'install', package])
 
 import pandas as pd
 import plotly.express as px
